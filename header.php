@@ -1,7 +1,7 @@
 <div class="header">
 
             <div class="header-left active">
-                <a href="index.html" class="logo">
+                <a href="index.php" class="logo">
                     <img src="assets/img/logo.png" alt="">
                 </a>
                 <a href="index.html" class="logo-small">
@@ -26,9 +26,9 @@
                         <a href="javascript:void(0);" class="responsive-search">
                             <i class="fa fa-search"></i>
                         </a>
-                        <form action="#">
+                        <form action="filtered_order.php?search=1" method="post">
                             <div class="searchinputs">
-                                <input type="text" placeholder="Enter a date to list orders">
+                                <input type="text" name="date" placeholder="Enter a date to list orders">
                                 <div class="search-addon">
                                     <span><img src="assets/img/icons/closes.svg" alt="img"></span>
                                 </div>

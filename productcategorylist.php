@@ -149,7 +149,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table  datanew">
+                            <table class="table  datanew" id="table">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -184,12 +184,8 @@
                                                 echo "<td>{$row['name']}</td>";
                                                 echo "<td>{$row['description']}</td>";
                                                 echo '<td><a class="me-3" href="product-details.html">
-                                                <img src="assets/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="editproduct.html">
-                                                <img src="assets/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="confirm-text" href="javascript:void(0);">
+                                               
+                                            <a class="btndelete" href="javascript:void(0);">
                                                 <img src="assets/img/icons/delete.svg" alt="img">
                                             </a></td>';
                                                 echo "</tr>";
@@ -209,6 +205,7 @@
     </div>
 
 
+    <script src="assets/js/categorylist.js"></script>
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="assets/js/feather.min.js"></script>

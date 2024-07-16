@@ -177,13 +177,8 @@
                                             echo "<td>$product_description</td>";
                                             echo "
                                             <td >
-                                                <a class='me-3' href='product-details.html'>
-                                                    <img src='assets/img/icons/eye.svg' alt='img'>
-                                                </a>
-                                                <a class='me-3' href='editproduct.html'>
-                                                    <img src='assets/img/icons/edit.svg' alt='img'>
-                                                </a>
-                                                <a  id ='test' href='javascript:void(0);'>
+                                               
+                                                <a  class='btndelete' id ='test' href='javascript:void(0);'>
                                                     <img src='assets/img/icons/delete.svg' alt='img'>
                                                 </a>
                                             </td>
@@ -204,6 +199,7 @@
     </div>
     <script src="test.js"></script>
 
+    <script src="assets/js/productlist.js"></script>
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 

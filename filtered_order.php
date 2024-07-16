@@ -44,17 +44,7 @@
 
         <div class="page-wrapper">
             <div class="content">
-                <div class="page-header">
-                    <div class="page-title">
-                        <h4>Product List</h4>
-                        <h6>Manage your products</h6>
-                    </div>
-                    <div class="page-btn">
-                        <a href="addproduct.html" class="btn btn-added"><img src="assets/img/icons/plus.svg" alt="img"
-                                class="me-1">Add New Product</a>
-                    </div>
-                </div>
-
+             
                 <div class="card">
                     <div class="card-body">
                         <div class="table-top">
@@ -161,14 +151,17 @@
                                 </thead>
                                 <tbody>
                                 <?php 
-                                        $query = "select `order`.*,users.name as username,products.name as product_name from `order` inner join users on `order`.users_user_id = users.user_id inner join products on products.product_id = `order`.products_product_id;";
+                                if($_GET['search'] == 1){
+                                    $date = $_POST['date'];
+                                   
+                                        $query = "select `order`.*,users.name as username,products.name as product_name from `order` inner join users on `order`.users_user_id = users.user_id inner join products on products.product_id = `order`.products_product_id where `order`.date like '%$date%';";
                                         $res = mysqli_query($connection,$query);
                                         while($row = mysqli_fetch_assoc($res)){
                                             $order_id = $row['order_id'];
                                             $amount = $row['amount'];
                                             $product_name = $row['product_name'];
                                             $user = $row['username'];
-                                            $date = $row['date'];
+                                            $record_date = $row['date'];
 
 
                                      echo "<tr style='text-align: center;''>";
@@ -178,11 +171,14 @@
                                             echo "<td>$amount</td>";
                                             echo "<td>$product_name</td>";
                                             echo "<td>$user</td>";
-                                            echo "<td>$date</td>";
+                                            echo "<td>$record_date</td>";
 
                                             echo "
                                             <td >
-                                                <a class='btndelete' id ='test' href='javascript:void(0);'>
+                                                <a class='me-3' href='editproduct.html'>
+                                                    <img src='assets/img/icons/edit.svg' alt='img'>
+                                                </a>
+                                                <a  id ='test' href='javascript:void(0);'>
                                                     <img src='assets/img/icons/delete.svg' alt='img'>
                                                 </a>
                                             </td>
@@ -191,6 +187,7 @@
                                         
                                         
                                     echo "</tr>";
+                                }
                                     ?>
                                 </tbody>
                             </table>
@@ -204,7 +201,6 @@
     <script src="test.js"></script>
 
 
-    <script src="assets/js/orderlist.js"></script>
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="assets/js/feather.min.js"></script>
