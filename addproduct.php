@@ -4,8 +4,10 @@
         $name = $_POST['name'];
         $description = $_POST['description'];
         $product_category_id = $_POST['select'];
-        $sql = "insert into products(name,product_category,description) values('$name','$product_category_id','$description')";
-        mysqli_query($connection,$sql);        
+        $icon = 'icons/'.$_FILES['icon']['name'] ;
+        $sql = "insert into products(name,product_category,description,icon_url) values('$name','$product_category_id','$description','$icon')";
+        mysqli_query($connection,$sql);   
+        move_uploaded_file($_FILES['icon']['tmp_name'],$icon);
     }
 
 ?>
@@ -64,13 +66,15 @@
                     <div class="card-body">
                         <div class="row">
 
-                            <form action="addproduct.php" method="post">
+                            <form action="addproduct.php" method="post" enctype="multipart/form-data">
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Enter the product name</label>
                                     <input type="text" id="productname" name="name">
+                                    
                                 </div>
                             </div>
+                            
                             <div class="col-lg-3 col-sm-2 col-12">
                                 <div class="form-group">
                                     <label>Choose category</label>
@@ -93,6 +97,13 @@
                                     <textarea class="form-control" id="productdesc" name="description"></textarea>
                                 </div>
                             </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Choose the icon</label>
+                                    <input type="file" id="icon" name="icon">
+                                </div>
+                            </div>
+                            
 
 
                             <div class="col-lg-12">

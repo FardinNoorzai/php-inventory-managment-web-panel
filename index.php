@@ -74,52 +74,7 @@
             </div>
 
 
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                        <div class="dash-count">
-                            <div class="dash-counts">
-                                <h4>100</h4>
-                                <h5>Customers</h5>
-                            </div>
-                            <div class="dash-imgs">
-                                <i data-feather="user"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                        <div class="dash-count das1">
-                            <div class="dash-counts">
-                                <h4>100</h4>
-                                <h5>Suppliers</h5>
-                            </div>
-                            <div class="dash-imgs">
-                                <i data-feather="user-check"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                        <div class="dash-count das2">
-                            <div class="dash-counts">
-                                <h4>100</h4>
-                                <h5>Purchase Invoice</h5>
-                            </div>
-                            <div class="dash-imgs">
-                                <i data-feather="file-text"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                        <div class="dash-count das3">
-                            <div class="dash-counts">
-                                <h4>105</h4>
-                                <h5>Sales Invoice</h5>
-                            </div>
-                            <div class="dash-imgs">
-                                <i data-feather="file"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
 
                 <div class="row">
                     <div class="col-lg-7 col-sm-12 col-12 d-flex">
@@ -183,52 +138,40 @@
                                     <table class="table datatable ">
                                         <thead>
                                             <tr>
-                                                <th>Sno</th>
+                                                <th>ID</th>
                                                 <th>Products</th>
-                                                <th>Price</th>
+                                                <th>Category</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td class="productimgname">
-                                                    <a href="productlist.html" class="product-img">
-                                                        <img src="assets/img/product/product22.jpg" alt="product">
+                                            <?php 
+
+                                                $query = "select products.*,product_category.name as category_name from products left join product_category on product_category.product_category_id = products.product_category;";
+
+                                                $res = mysqli_query($connection,$query);
+                                                while($row = mysqli_fetch_assoc($res)){
+                                                    $icon_url = $row['icon_url'];
+                                                    $id = $row['product_id'];
+                                                    $name = $row['name'];
+                                                    $product_category_name = $row['category_name'];
+
+                                                    echo "<tr>
+                                                <td>$id</td>
+                                                <td class='productimgname'>
+                                                    <a href='productlist.html' class='product-img'>
+                                                        <img src='$icon_url' alt='product'>
                                                     </a>
-                                                    <a href="productlist.html">Apple Earpods</a>
+                                                    <a href='productlist.html'>$name</a>
                                                 </td>
-                                                <td>$891.2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td class="productimgname">
-                                                    <a href="productlist.html" class="product-img">
-                                                        <img src="assets/img/product/product23.jpg" alt="product">
-                                                    </a>
-                                                    <a href="productlist.html">iPhone 11</a>
-                                                </td>
-                                                <td>$668.51</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td class="productimgname">
-                                                    <a href="productlist.html" class="product-img">
-                                                        <img src="assets/img/product/product24.jpg" alt="product">
-                                                    </a>
-                                                    <a href="productlist.html">samsung</a>
-                                                </td>
-                                                <td>$522.29</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td class="productimgname">
-                                                    <a href="productlist.html" class="product-img">
-                                                        <img src="assets/img/product/product6.jpg" alt="product">
-                                                    </a>
-                                                    <a href="productlist.html">Macbook Pro</a>
-                                                </td>
-                                                <td>$291.01</td>
-                                            </tr>
+                                                <td>$product_category_name</td>
+                                                </tr>";
+                                                }
+
+                                            
+                                                
+
+                                            
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -238,72 +181,117 @@
                 </div>
                 <div class="card mb-0">
                     <div class="card-body">
-                        <h4 class="card-title">Expired Products</h4>
+                        <h4 class="card-title">User Balance</h4>
                         <div class="table-responsive dataview">
                             <table class="table datatable ">
                                 <thead>
                                     <tr>
-                                        <th>SNo</th>
-                                        <th>Product Code</th>
-                                        <th>Product Name</th>
-                                        <th>Brand Name</th>
-                                        <th>Category Name</th>
-                                        <th>Expiry Date</th>
+                                        <th>Username</th>
+                                        <th>Icon</th>
+                                        <th>Product</th>
+                                        <th>Balance</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php 
+                                        $query = "select * from users where role = 'user'";
+                                        $res = mysqli_query($connection,$query);
+                                        while($row = mysqli_fetch_assoc($res)){
+                                            $user_name = $row['name'];
+                                            $user_id = $row['user_id'];
+                                            $query_product = "select * from products";
+                                            $res_products = mysqli_query($connection,$query_product);
+                                            while($row_product = mysqli_fetch_assoc($res_products)){
+                                                $product_id = $row_product['product_id'];
+                                                $product_name = $row_product['name'];
+                                                $product_url = $row_product['icon_url'];
+                                                $query_order = "select sum(amount) as sum,transactionscol as status from `order` where users_user_id=$user_id and products_product_id = $product_id group by transactionscol;";
+                                                $resault = mysqli_query($connection,$query_order);
+                                                $balance = 0;
+                                                while($r = mysqli_fetch_assoc($resault)){
+                                                    if($r['status'] == 1){
+                                                        $balance += $r['sum'];
+                                                    }else{
+                                                        $balance -= $r['sum'];
+                                                    }
+                                                }
+                                                if($balance != 0){
+                                                    echo "<tr>
+                                                    <td><a href='javascript:void(0);'>$user_name</a></td>
+                                                    <td class='productimgname'>
+                                                        <a class='product-img' href='productlist.html'>
+                                                            <img src='$product_url' alt='product'>
+                                                        </a>
+                                                        <a href='productlist.html'>$product_name</a>
+                                                    </td>
+                                                    <td>$product_name</td>
+                                                    <td>$balance</td>
+                                                </tr>";
+                                                }
+                                            }
+                                            
+                                            
+                                        }
+                                            
+                                    
+                                    ?>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4 class="card-title">Stock Balance</h4>
+                        <div class="table-responsive dataview">
+                            <table class="table datatable ">
+                                <thead>
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="javascript:void(0);">IT0001</a></td>
-                                        <td class="productimgname">
-                                            <a class="product-img" href="productlist.html">
-                                                <img src="assets/img/product/product2.jpg" alt="product">
-                                            </a>
-                                            <a href="productlist.html">Orange</a>
-                                        </td>
-                                        <td>N/D</td>
-                                        <td>Fruits</td>
-                                        <td>12-12-2022</td>
+                                        <th>Product</th>
+                                        <th>Icon</th>
+                                        <th>Category</th>
+                                        <th>Balance</th>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td><a href="javascript:void(0);">IT0002</a></td>
-                                        <td class="productimgname">
-                                            <a class="product-img" href="productlist.html">
-                                                <img src="assets/img/product/product3.jpg" alt="product">
-                                            </a>
-                                            <a href="productlist.html">Pineapple</a>
-                                        </td>
-                                        <td>N/D</td>
-                                        <td>Fruits</td>
-                                        <td>25-11-2022</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td><a href="javascript:void(0);">IT0003</a></td>
-                                        <td class="productimgname">
-                                            <a class="product-img" href="productlist.html">
-                                                <img src="assets/img/product/product4.jpg" alt="product">
-                                            </a>
-                                            <a href="productlist.html">Stawberry</a>
-                                        </td>
-                                        <td>N/D</td>
-                                        <td>Fruits</td>
-                                        <td>19-11-2022</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td><a href="javascript:void(0);">IT0004</a></td>
-                                        <td class="productimgname">
-                                            <a class="product-img" href="productlist.html">
-                                                <img src="assets/img/product/product5.jpg" alt="product">
-                                            </a>
-                                            <a href="productlist.html">Avocat</a>
-                                        </td>
-                                        <td>N/D</td>
-                                        <td>Fruits</td>
-                                        <td>20-11-2022</td>
-                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                        
+                                            $query_product = "select products.*,product_category.name as category_name from products inner join product_category on products.product_category = product_category.product_category_id;";
+                                            $res_products = mysqli_query($connection,$query_product);
+                                            while($row_product = mysqli_fetch_assoc($res_products)){
+                                                $product_id = $row_product['product_id'];
+                                                $product_name = $row_product['name'];
+                                                $product_url = $row_product['icon_url'];
+                                                $product_category = $row_product['category_name'];
+                                                $query_order = "select sum(amount) as sum,transactionscol as status from `order` where products_product_id = $product_id group by transactionscol;";
+                                                $resault = mysqli_query($connection,$query_order);
+                                                $balance = 0;
+                                                while($r = mysqli_fetch_assoc($resault)){
+                                                    if($r['status'] == 1){
+                                                        $balance += $r['sum'];
+                                                    }else{
+                                                        $balance -= $r['sum'];
+                                                    }
+                                                }
+                                                if($balance != 0){
+                                                    echo "<tr>
+                                                    <td><a href='javascript:void(0);'>$product_name</a></td>
+                                                    <td class='productimgname'>
+                                                        <a class='product-img' href='productlist.html'>
+                                                            <img src='$product_url' alt='product'>
+                                                        </a>
+                                                        <a href='productlist.html'>$product_name</a>
+                                                    </td>
+                                                    <td>$product_category</td>
+                                                    <td>$balance</td>
+                                                </tr>";
+                                                }
+                                            }
+                                            
+                                            
+                                        
+                                            
+                                    
+                                    ?>
+                                    
                                 </tbody>
                             </table>
                         </div>

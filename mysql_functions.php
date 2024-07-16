@@ -20,7 +20,7 @@ function find_by_user_name($username){
 }
 
 function add_user($name,$email,$hashed_password,$username,$profile_path){
-    $query = "insert into users(name,email,user_name,password,role,status,profile_url) values('{$name}','{$email}','{$username}','{$hashed_password}','User','1','{$profile_path}')";
+    $query = "insert into users(name,email,user_name,password,role,status,profile_url) values('{$name}','{$email}','{$username}','{$hashed_password}','user','1','{$profile_path}')";
     $connection = mysqli_connect("localhost", "root", "12345", "php");
     if(mysqli_query($connection,$query)){
         return true;
